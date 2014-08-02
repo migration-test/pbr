@@ -161,7 +161,7 @@ class Post:
         post_data['preview'] = cgi.escape(post_data['preview'], quote=True)
         post_data['body'] = cgi.escape(post_data['body'], quote=True)
         post_data['date'] = datetime.datetime.utcnow()
-        post_data['permalink'] = permalink
+        post_data['permalink'] = cgi.escape(post_data['url'])
 
         return post_data
 
