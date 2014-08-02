@@ -86,6 +86,7 @@ def new_post():
     if request.method == 'POST':
         post_title = request.form.get('post-title').strip()
         post_full = request.form.get('post-full')
+        post_url = request.form.get('post-url')
 
         if not post_title or not post_full:
             error = True
@@ -96,7 +97,8 @@ def new_post():
                          'preview': request.form.get('post-short'),
                          'body': post_full,
                          'tags': tags_array,
-                         'author': session['user']['username']}
+                         'author': session['user']['username'],
+                         'permalink': post_url}
 
             post = postClass.validate_post_data(post_data)
             if request.form.get('post-preview') == '1':

@@ -151,17 +151,16 @@ class Post:
 
     @staticmethod
     def validate_post_data(post_data):
-        permalink = random_string(12)
-        #exp = re.compile('\W')
-        #whitespace = re.compile('\s')
-        #temp_title = whitespace.sub("_", post_data['title'])
-        #permalink = exp.sub('', temp_title)
+        if post_data['permalink']:
+            permalink = cgi.escape(post_data['permalink'].replace(" ", "-"))
+        else:
+            permalink = cgi.escape(post_data['title'].replace(" ", "-"))
 
         post_data['title'] = cgi.escape(post_data['title'])
         post_data['preview'] = cgi.escape(post_data['preview'], quote=True)
         post_data['body'] = cgi.escape(post_data['body'], quote=True)
         post_data['date'] = datetime.datetime.utcnow()
-        post_data['permalink'] = cgi.escape(post_data['url'])
+        post_data['permalink'] = permalink
 
         return post_data
 
