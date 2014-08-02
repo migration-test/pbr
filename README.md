@@ -1,14 +1,3 @@
-# flask-blog
-
-simple blog ~~engine~~ written on [Flask](http://flask.pocoo.org/)
-
-# Demo:
-you can try it [here](http://flask-blog-demo.herokuapp.com/)
-
-login:demo
-
-pass:demo
-
 # Under the hood:
 - [Python](http://python.org/)
 - [Flask](http://flask.pocoo.org/)
@@ -20,7 +9,7 @@ pass:demo
 
 
 # What it can:
-- create/preview/update/delete articles;
+- create/preview/update/delete blog posts;
 - create/update/delete users;
 - search;
 - atom feed.
@@ -31,23 +20,16 @@ pass:demo
 - [Gravatar](http://gravatar.com) for userpic.
 
 
-# To Do:
-- mongoDB text search
-- comments maybe
-- drafts
-
-
 # Installation:
-`git clone https://github.com/dmaslov/flask-blog.git`
+`git clone https://github.com/phillipbroberts/pbr.git`
 
-`cd flask-blog`
+`cd pbr`
 
 `virtualenv --no-site-packages ./env`
 
 `source ./env/bin/activate`
 
 `pip install -r requirements.txt`
-
 
 After this edit the `config.py` file
 
@@ -121,3 +103,7 @@ The word will be replaced with a working gist tag.
 
 # Upd:
 Don't need to highlight text to add a link or an image anymore. Now you can simply click some tag in the editor menu and put a link. The 'Markdown' tag will be created automatically with a highlighted temporary description. The existing pasting algorithm works as it did before.
+
+# Credit
+
+Originally based off of flask-blog at `git clone https://github.com/dmaslov/flask-blog.git`
