@@ -1,11 +1,12 @@
 import cgi
-import os
-from flask import Flask, render_template, abort, url_for, request, flash, session, redirect
+
+from flask import Flask, render_template, abort
+from werkzeug.contrib.atom import AtomFeed
+
 from flaskext.markdown import Markdown
 from mdx_github_gists import GitHubGistExtension
 from mdx_strike import StrikeExtension
 from mdx_quote import QuoteExtension
-from werkzeug.contrib.atom import AtomFeed
 import post
 import user
 import pagination
@@ -48,7 +49,8 @@ def single_post(permalink):
     post = postClass.get_post_by_permalink(permalink)
     if not post['data']:
         abort(404)
-    return render_template('single_post.html', post=post['data'], meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'])
+    return render_template('single_post.html', post=post['data'],
+                           meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'])
 
 
 @app.route('/q/<query>', defaults={'page': 1})
@@ -275,7 +277,7 @@ def save_user():
     if not post_data['email'] or not post_data['_id']:
         flash('Username and Email are required..', 'error')
         if post_data['update']:
-                return redirect(url_for('edit_user', id=post_data['_id']))
+            return redirect(url_for('edit_user', id=post_data['_id']))
         else:
             return redirect(url_for('add_user'))
     else:
@@ -446,10 +448,7 @@ app.jinja_env.globals['tags'] = postClass.get_tags()['data']
 if not app.config['DEBUG']:
     import logging
     from logging import FileHandler
+
     file_handler = FileHandler(app.config['LOG_FILE'])
     file_handler.setLevel(logging.WARNING)
     app.logger.addHandler(file_handler)
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)),
-            debug=app.config['DEBUG'])
